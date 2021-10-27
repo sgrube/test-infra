@@ -3,6 +3,10 @@ presubmits:
   - name: build_ibm-metering-operator
     branches:
     - ^master$
+    - ^release-future$
+    - ^release-efix$
+    - ^release-eus$
+    - ^release-k$
     decorate: true
     always_run: true
     path_alias: github.com/IBM/ibm-metering-operator
