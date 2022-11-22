@@ -36,6 +36,7 @@ items:
           - --rerun-creates-job=true
           - --cookie-secret=/etc/cookie/secret
           - --job-config-path=/etc/job-config
+          - --build-cluster=/etc/cluster/cluster
           image: gcr.io/k8s-prow/deck:v20200714-1215e87acc
           imagePullPolicy: IfNotPresent
           livenessProbe:
@@ -82,6 +83,9 @@ items:
           - mountPath: /etc/plugins
             name: plugins
             readOnly: true
+          - mountPath: /etc/cluster
+            name: cluster
+            readOnly: true
         dnsPolicy: ClusterFirst
         restartPolicy: Always
         schedulerName: default-scheduler
@@ -110,6 +114,10 @@ items:
           secret:
             defaultMode: 420
             secretName: cookie
+        - name: cluster
+          secret:
+            defaultMode: 420
+            secretName: build-cluster
 - apiVersion: apps/v1
   kind: Deployment
   metadata:
@@ -298,6 +306,7 @@ items:
           - --config-path=/etc/config/config.yaml
           - --job-config-path=/etc/job-config
           - --github-token-path=/etc/github/oauth
+          - --build-cluster=/etc/cluster/cluster
           image: gcr.io/k8s-prow/plank:v20200714-1215e87acc
           imagePullPolicy: IfNotPresent
           name: plank
@@ -313,6 +322,9 @@ items:
             readOnly: true
           - mountPath: /etc/job-config
             name: job-config
+            readOnly: true
+          - mountPath: /etc/cluster
+            name: cluster
             readOnly: true
         dnsPolicy: ClusterFirst
         restartPolicy: Always
@@ -334,6 +346,10 @@ items:
             defaultMode: 420
             name: job-config
           name: job-config
+        - name: cluster
+          secret:
+            defaultMode: 420
+            secretName: build-cluster
 - apiVersion: apps/v1
   kind: Deployment
   metadata:
