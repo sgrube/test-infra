@@ -215,7 +215,7 @@ presets:
   volumes:
   - name: ssh-keys-private-ssh-secret
     secret:
-    secretName: private-ssh-secret
+      secretName: private-ssh-secret
 # Enable GOPROXY by default
 - env:
   - name: GOPROXY
