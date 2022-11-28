@@ -212,6 +212,10 @@ presets:
   - mountPath: /root/.ssh
     name: ssh-keys-private-ssh-secret
     readOnly: true
+  volumes:
+  - name: ssh-keys-private-ssh-secret
+    secret:
+    secretName: private-ssh-secret
 # Enable GOPROXY by default
 - env:
   - name: GOPROXY
