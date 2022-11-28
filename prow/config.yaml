@@ -210,8 +210,13 @@ presets:
     value: github.ibm.com
   volumeMounts:
   - mountPath: /root/.ssh
-    name: ssh-keys-private-ssh-secret
+    name: ssh-keys-private-ssh-secret-mount
     readOnly: true
+  volumes:
+  - name: ssh-keys-private-ssh-secret-mount
+    secret:
+      secretName: private-ssh-secret
+      defaultMode: 0400
 # Enable GOPROXY by default
 - env:
   - name: GOPROXY
