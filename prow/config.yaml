@@ -216,6 +216,7 @@ presets:
   - name: ssh-keys-private-ssh-secret-mount
     secret:
       secretName: private-ssh-secret
+      defaultMode: 0400
 # Enable GOPROXY by default
 - env:
   - name: GOPROXY
