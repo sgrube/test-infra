@@ -125,8 +125,8 @@ RUN apt-get update && apt-get -y dist-upgrade && apt-get install -y --no-install
 RUN add-apt-repository -y ppa:brightbox/ruby-ng-experimental
 # hadolint ignore=DL3008
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    ruby2.6 \
-    ruby2.6-dev
+    ruby2.7 \
+    ruby2.7-dev
 
 # Install verification tools
 RUN gem install --no-wrappers --no-document mdl -v ${MDL_VERSION}
