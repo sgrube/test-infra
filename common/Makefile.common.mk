@@ -16,12 +16,13 @@
 # GKE section
 ############################################################
 PROJECT ?= oceanic-guard-191815
-ZONE    ?= us-west1-a
-CLUSTER ?= prow
+ZONE    ?= us-east5-c
+CLUSTER ?= bedrock-prow
 
 activate-serviceaccount:
 ifdef GOOGLE_APPLICATION_CREDENTIALS
 	gcloud auth activate-service-account --key-file="$(GOOGLE_APPLICATION_CREDENTIALS)"
+	gcloud components install gke-gcloud-auth-plugin
 endif
 
 get-cluster-credentials: activate-serviceaccount
