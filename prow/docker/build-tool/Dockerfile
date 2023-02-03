@@ -105,7 +105,7 @@ RUN apt-get update && apt-get -y --no-install-recommends install \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
-# gcloud SDK
+# gcloud SDK testing
 ENV CLOUDSDK_PYTHON_SITEPACKAGES=1
 ENV CLOUDSDK_CORE_DISABLE_PROMPTS=1
 ENV CLOUDSDK_INSTALL_DIR=/usr/lib
