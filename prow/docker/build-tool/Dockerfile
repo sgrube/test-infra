@@ -3,7 +3,7 @@
 #############
 
 # Use golang as the binary_tools_context
-FROM golang:1.20.0 as binary_tools_context
+FROM golang:1.18.10 as binary_tools_context
 
 ARG ARCH=amd64
 
@@ -80,6 +80,12 @@ RUN rm -fr /usr/local/go/bin/gofmt
 
 
 #############
+# gcloud sdk 412.0.0 for multi arch
+#############
+
+FROM quay.io/cicdtest/build-tool:v20230104-558747cdc as gcloud_context
+
+#############
 # Base OS
 #############
 
@@ -105,7 +111,7 @@ RUN apt-get update && apt-get -y --no-install-recommends install \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
-# gcloud SDK testing
+# gcloud SDK
 ENV CLOUDSDK_PYTHON_SITEPACKAGES=1
 ENV CLOUDSDK_CORE_DISABLE_PROMPTS=1
 ENV CLOUDSDK_INSTALL_DIR=/usr/lib
@@ -164,6 +170,8 @@ ENV DOCKER_CONFIG=${HOME}/.docker
 
 # Create the file system
 COPY --from=base_os_context / /
+RUN rm -fr /usr/lib/google-cloud-sdk
+COPY --from=gcloud_context /usr/lib/google-cloud-sdk /usr/lib/google-cloud-sdk
 COPY --from=binary_tools_context /out/ /
 COPY --from=binary_tools_context /usr/local/go /usr/local/go
 
