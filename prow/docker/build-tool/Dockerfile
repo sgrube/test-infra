@@ -115,7 +115,7 @@ RUN apt-get update && apt-get -y --no-install-recommends install \
 ENV CLOUDSDK_PYTHON_SITEPACKAGES=1
 ENV CLOUDSDK_CORE_DISABLE_PROMPTS=1
 ENV CLOUDSDK_INSTALL_DIR=/usr/lib
-RUN curl https://sdk.cloud.google.com > /tmp/install_gcloud_sdk
+RUN echo curl https://sdk.cloud.google.com > /tmp/install_gcloud_sdk
 # FIXME: remove always true suffix after gcloud-sdk installation on ppc64le&s390x is fixed.
 # RUN chmod +x /tmp/install_gcloud_sdk && bash /tmp/install_gcloud_sdk || true
 # add kubectl auth plugin
@@ -170,7 +170,6 @@ ENV DOCKER_CONFIG=${HOME}/.docker
 
 # Create the file system
 COPY --from=base_os_context / /
-COPY --from=gcloud_context /usr/lib/google-cloud-sdk /usr/lib/google-cloud-sdk
 COPY --from=binary_tools_context /out/ /
 COPY --from=binary_tools_context /usr/local/go /usr/local/go
 
