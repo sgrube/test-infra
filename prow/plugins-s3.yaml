@@ -1,0 +1,149 @@
+triggers:
+- repos:
+  - IBM
+  trusted_org: IBM
+  elide_skipped_contexts: true
+
+config_updater:
+  maps:
+    prow/config-s3.yaml:
+      name: config
+    prow/plugins-s3.yaml:
+      name: plugins
+    prow/cluster/jobs/**/*.yaml:
+      name: job-config
+
+plugins:
+  IBM/test-infra:
+  - config-updater
+
+  IBM:
+  - approve
+  - assign
+  - blunderbuss
+  - cat
+  - dog
+  - golint
+  - heart
+  - help
+  - hold
+  - label
+  - lgtm
+  - lifecycle
+  - milestone
+  - owners-label
+  - project
+  - retitle
+  - shrug
+  - size
+  - stage
+  - trigger
+  - verify-owners
+  - welcome
+  - wip
+  - yuks
+
+  hybridapp-io:
+  - approve
+  - assign
+  - blunderbuss
+  - cat
+  - dog
+  - golint
+  - heart
+  - help
+  - hold
+  - label
+  - lgtm
+  - lifecycle
+  - milestone
+  - owners-label
+  - project
+  - retitle
+  - shrug
+  - size
+  - stage
+  - trigger
+  - verify-owners
+  - welcome
+  - wip
+  - yuks
+
+  multicloudlab:
+  - approve
+  - assign
+  - blunderbuss
+  - cat
+  - docs-no-retest
+  - dog
+  - golint
+  - heart
+  - help
+  - hold
+  - label
+  - lgtm
+  - lifecycle
+  - milestone
+  - milestonestatus
+  - override
+  - owners-label
+  - pony
+  - project
+  - retitle
+  - shrug
+  - skip
+  - size
+  - stage
+  - trigger
+  - verify-owners
+  - welcome
+  - wip
+  - yuks
+
+  rh-ibm-synergy:
+  - approve
+  - assign
+  - blunderbuss
+  - golint
+  - help
+  - hold
+  - lgtm
+  - lifecycle
+  - size
+  - trigger
+  - verify-owners
+  - wip
+
+external_plugins:
+  IBM:
+  # - name: needs-rebase
+  #   events:
+  #   - pull_request
+  - name: cherrypicker
+    events:
+      - issue_comment
+      - pull_request
+  hybridapp-io:
+  - name: needs-rebase
+    events:
+    - pull_request
+  - name: cherrypicker
+    events:
+      - issue_comment
+      - pull_request
+  multicloudlab:
+  - name: needs-rebase
+    events:
+    - pull_request
+  - name: cherrypicker
+    events:
+      - issue_comment
+      - pull_request
+  # rh-ibm-synergy:
+  # - name: needs-rebase
+  #   events:
+  #   - pull_request
+  # - name: cherrypicker
+  #   events:
+  #     - issue_comment
+  #     - pull_request
