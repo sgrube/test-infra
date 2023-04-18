@@ -3,6 +3,7 @@
 #############
 
 # Use golang as the binary_tools_context
+# test
 FROM golang:1.20.3 as binary_tools_context
 
 # Pinned versions of stuff
