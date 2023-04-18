@@ -81,9 +81,8 @@ RUN rm -fr /usr/local/go/bin/gofmt
 
 #############
 # gcloud sdk 412.0.0 for multi arch
+# no longer needed in s3 prow
 #############
-
-FROM quay.io/cicdtest/build-tool:v20230104-558747cdc as gcloud_context
 
 #############
 # Base OS
