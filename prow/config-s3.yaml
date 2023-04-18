@@ -1,0 +1,264 @@
+prowjob_namespace: prow
+pod_namespace: test-pods
+decorate_all_jobs: true
+
+in_repo_config:
+  enabled:
+    "*": true
+
+deck:
+ spyglass:
+   lenses:
+   - lens:
+       name: metadata
+     required_files:
+     - started.json|finished.json
+   - lens:
+       config:
+       name: buildlog
+     required_files:
+     - build-log.txt
+   - lens:
+       name: junit
+     required_files:
+     - .*/junit.*\.xml
+   - lens:
+       name: podinfo
+     required_files:
+     - podinfo.json
+
+plank:
+  job_url_prefix_config:
+    "*": http://prow.yellow-chesterfield.com/view/
+  report_templates:
+    '*': >-
+        [Full PR test history](http://prow.yellow-chesterfield.com/pr-history?org={{.Spec.Refs.Org}}&repo={{.Spec.Refs.Repo}}&pr={{with index .Spec.Refs.Pulls 0}}{{.Number}}{{end}}).
+        [Your PR dashboard](http://prow.yellow-chesterfield.com/pr?query=is:pr+state:open+author:{{with
+        index .Spec.Refs.Pulls 0}}{{.Author}}{{end}}).
+  default_decoration_configs:
+    "*":
+      gcs_configuration:
+        bucket: s3://bedrock-prow-logs
+        path_strategy: explicit
+      s3_credentials_secret: s3-credentials
+      utility_images:
+        clonerefs: gcr.io/k8s-prow/clonerefs:v20230412-a86d65c3c2
+        entrypoint: gcr.io/k8s-prow/entrypoint:v20230412-a86d65c3c2
+        initupload: gcr.io/k8s-prow/initupload:v20230412-a86d65c3c2
+        sidecar: gcr.io/k8s-prow/sidecar:v20230412-a86d65c3c2
+
+tide:
+  merge_method:
+    multicloudlab/oasis: squash
+    multicloudlab/mygit: squash
+    multicloudlab/test-infra: squash
+    multicloudlab/tools: squash
+    rh-ibm-synergy/multicloud-operators-foundation: squash
+    IBM/deployer-operator: squash
+    IBM/hybridapplication-operator: squash
+    IBM/hybriddeployable-operator: squash
+    IBM/go-repo-template: squash
+    IBM/test-infra: squash
+    IBM/ibm-auditlogging-operator: squash
+    IBM/ibm-catalog-ui-operator: squash
+    IBM/ibm-cert-manager-operator: squash
+    IBM/ibm-commonui-operator: squash
+    IBM/ibm-common-service-operator: squash
+    IBM/ibm-namespace-scope-operator: squash
+    IBM/ibm-common-service-webhook: squash
+    IBM/ibm-crossplane-operator: squash
+    IBM/crossplane-provider-kubernetes: squash
+    IBM/crossplane-provider-ibm-cloud: squash
+    IBM/ibm-elastic-stack-operator: squash
+    IBM/ibm-grafana-ocpthanos-proxy: squash
+    IBM/ibm-monitoring-grafana-operator: squash
+    IBM/ibm-healthcheck-operator: squash
+    IBM/ibm-helm-api-operator: squash
+    IBM/ibm-helm-repo-operator: squash
+    IBM/ibm-iam-operator: squash
+    IBM/ibm-iam-policy-operator: squash
+    IBM/ibm-ingress-nginx-operator: squash
+    IBM/ibm-licensing-hub-operator: squash
+    IBM/ibm-licensing-operator: squash
+    IBM/ibm-management-ingress-operator: squash
+    IBM/ibm-management-repo-operator: squash
+    IBM/ibm-metering-multicloudui-operator: squash
+    IBM/ibm-metering-operator: squash
+    IBM/ibm-metering-receiver-operator: squash
+    IBM/ibm-metering-sender-operator: squash
+    IBM/ibm-mongodb-operator: squash
+    IBM/ibm-monitoring-exporters-operator: squash
+    IBM/ibm-monitoring-prometheus-operator-ext: squash
+    IBM/ibm-mt-grqenforcer-operator: squash
+    IBM/ibm-platform-api-operator: squash
+    IBM/ibm-secretshare-operator: squash
+    IBM/operand-deployment-lifecycle-manager: squash
+    IBM/multicloud-operators-subscription-release: squash
+    IBM/multicloud-operators-policy-controller: squash
+    IBM/multicloud-operators-placementrule: squash
+    IBM/multicloud-operators-deployable: squash
+    IBM/multicloud-operators-channel: squash
+    IBM/multicloud-operators-subscription: squash
+    IBM/multicloud-multi-tenancy: squash
+    IBM/multicloud-application-monitoring-dashboard: squash
+    IBM/prometheus-metrics-server-simulator: squash
+    hybridapp-io/application: squash
+    hybridapp-io/ham-application-assembler: squash
+    hybridapp-io/ham-deploy: squash
+    hybridapp-io/ham-docs: squash
+    hybridapp-io/ham-placement: squash
+    hybridapp-io/ham-resource-discoverer: squash
+    hybridapp-io/ham-deployable-operator: squash
+    hybridapp-io/samples: squash
+
+  target_url: http://prow.yellow-chesterfield.com/tide
+  queries:
+  - repos:
+    - multicloudlab/oasis
+    - multicloudlab/mygit
+    - multicloudlab/tools
+    - rh-ibm-synergy/multicloud-operators-foundation
+    - IBM/deployer-operator
+    - IBM/hybridapplication-operator
+    - IBM/hybriddeployable-operator
+    - IBM/go-repo-template
+    - IBM/test-infra
+    - IBM/ibm-auditlogging-operator
+    - IBM/ibm-catalog-ui-operator
+    - IBM/ibm-cert-manager-operator
+    - IBM/ibm-commonui-operator
+    - IBM/ibm-common-service-operator
+    - IBM/ibm-namespace-scope-operator
+    - IBM/ibm-common-service-webhook
+    - IBM/ibm-crossplane-operator
+    - IBM/crossplane-provider-kubernetes
+    - IBM/crossplane-provider-ibm-cloud
+    - IBM/ibm-elastic-stack-operator
+    - IBM/ibm-grafana-ocpthanos-proxy
+    - IBM/ibm-monitoring-grafana-operator
+    - IBM/ibm-healthcheck-operator
+    - IBM/ibm-helm-api-operator
+    - IBM/ibm-helm-repo-operator
+    - IBM/ibm-iam-operator
+    - IBM/ibm-iam-policy-operator
+    - IBM/ibm-ingress-nginx-operator
+    - IBM/ibm-licensing-hub-operator
+    - IBM/ibm-licensing-operator
+    - IBM/ibm-management-ingress-operator
+    - IBM/ibm-management-repo-operator
+    - IBM/ibm-metering-multicloudui-operator
+    - IBM/ibm-metering-operator
+    - IBM/ibm-metering-receiver-operator
+    - IBM/ibm-metering-sender-operator
+    - IBM/ibm-mongodb-operator
+    - IBM/ibm-monitoring-exporters-operator
+    - IBM/ibm-monitoring-prometheus-operator-ext
+    - IBM/ibm-mt-grqenforcer-operator
+    - IBM/ibm-platform-api-operator
+    - IBM/ibm-secretshare-operator
+    - IBM/operand-deployment-lifecycle-manager
+    - IBM/multicloud-operators-subscription-release
+    - IBM/multicloud-operators-policy-controller
+    - IBM/multicloud-operators-placementrule
+    - IBM/multicloud-operators-deployable
+    - IBM/multicloud-operators-channel
+    - IBM/multicloud-operators-subscription
+    - IBM/multicloud-multi-tenancy
+    - IBM/multicloud-application-monitoring-dashboard
+    - IBM/prometheus-metrics-server-simulator
+    - hybridapp-io/application
+    - hybridapp-io/ham-application-assembler
+    - hybridapp-io/ham-deploy
+    - hybridapp-io/ham-docs
+    - hybridapp-io/ham-placement
+    - hybridapp-io/ham-resource-discoverer
+    - hybridapp-io/ham-deployable-operator
+    - hybridapp-io/samples
+    labels:
+    - lgtm
+    - approved
+    missingLabels:
+    - do-not-merge
+    - do-not-merge/hold
+    - do-not-merge/work-in-progress
+    - do-not-merge/invalid-owners-file
+    - needs-rebase
+
+  context_options:
+    # Use branch protection options to define required and optional contexts
+    from-branch-protection: true
+    # Treat unknown contexts as optional
+    skip-unknown-contexts: true
+
+# branch-protection:
+#   orgs:
+#     IBM:
+#       repos:
+#         go-repo-template:
+#           protect: true
+#           # TODO: add ibm cla
+#           # required_status_checks:
+#           #   contexts:
+#           #   - cla/ibm
+#           exclude:
+#             - "^revert-" # don't protect revert branches
+#             - "^dependabot/" # don't protect branches created by dependabot
+#             - "^greenkeeper/" # don't protect branches created by greenkeeper
+#           required_status_checks:
+#             contexts:
+#             - continuous-integration/travis-ci/pr
+
+presets:
+# anonymous preset kubeconfig
+- env:
+  volumeMounts:
+  - name: kubeconfig
+    mountPath: /etc/kubeconfig
+    readOnly: true
+  volumes:
+  - name: kubeconfig
+    secret:
+      secretName: kubeconfig
+# presets for tool image push
+- labels:
+    preset-tool-image-push: "true"
+  env:
+  - name: IMAGE_REPO
+    value: quay.io/cicdtest
+# presets for private repos
+- labels:
+    preset-service-account: "true"
+  env:
+# presets for private repos
+- labels:
+    preset-private-repo: "true"
+  env:
+  - name: GOPRIVATE
+    value: github.com/rh-ibm-synergy
+  volumeMounts:
+  - mountPath: /home/ssh
+    name: ssh-keys-ssh-secret
+    readOnly: true
+# presets for private repos
+- labels:
+    preset-ibm-private-repo: "true"
+  env:
+  - name: GOPRIVATE
+    value: github.ibm.com
+  volumeMounts:
+  - mountPath: /root/.ssh
+    name: ssh-keys-private-ssh-secret-mount
+    readOnly: true
+  volumes:
+  - name: ssh-keys-private-ssh-secret-mount
+    secret:
+      secretName: private-ssh-secret
+      defaultMode: 0400
+# Enable GOPROXY by default
+- env:
+  - name: GOPROXY
+    value: "https://proxy.golang.org"
+  - name: BUILD_LOCALLY
+    value: "0"
+  - name: KUBEBUILDER_CONTROLPLANE_START_TIMEOUT
+    value: "100s"
