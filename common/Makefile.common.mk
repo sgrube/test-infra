@@ -21,12 +21,16 @@ CLUSTER ?= bedrock-prow
 
 activate-serviceaccount:
 ifdef GOOGLE_APPLICATION_CREDENTIALS
-	gcloud auth activate-service-account --key-file="$(GOOGLE_APPLICATION_CREDENTIALS)" || (mkdir -p ~/.kube; cp -v /etc/kubeconfig/config ~/.kube; echo going forward retiring google cloud ...)
+	gcloud auth activate-service-account --key-file="$(GOOGLE_APPLICATION_CREDENTIALS)" || true
 	gcloud components install gke-gcloud-auth-plugin --quiet || true
 endif
+	mkdir -p ~/.kube; cp -v /etc/kubeconfig/config ~/.kube; echo going forward retiring google cloud ...
 
 get-cluster-credentials: activate-serviceaccount
-	gcloud container clusters get-credentials "$(CLUSTER)" --project="$(PROJECT)" --zone="$(ZONE)" || (kubectl config use-context default; kubectl -n test-pods get nodes; echo going forward retiring google cloud)
+ifdef GOOGLE_APPLICATION_CREDENTIALS
+	gcloud container clusters get-credentials "$(CLUSTER)" --project="$(PROJECT)" --zone="$(ZONE)" || true
+endif
+	kubectl config use-context default; kubectl -n test-pods get nodes; echo going forward retiring google cloud
 
 config-docker: get-cluster-credentials
 	@common/scripts/config_docker.sh
