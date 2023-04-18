@@ -81,7 +81,7 @@ RUN rm -fr /usr/local/go/bin/gofmt
 
 #############
 # gcloud sdk 412.0.0 for multi arch
-# no longer needed with s3 prow
+# no longer needed in s3 prow
 #############
 
 #############
