@@ -3,7 +3,6 @@
 #############
 
 # Use golang as the binary_tools_context
-# hello
 FROM golang:1.20.3 as binary_tools_context
 
 ARG ARCH=amd64
