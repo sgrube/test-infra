@@ -81,8 +81,10 @@ RUN rm -fr /usr/local/go/bin/gofmt
 
 #############
 # gcloud sdk 412.0.0 for multi arch
-# no longer needed in new prow
+# no longer needed in new prow, fake it
 #############
+
+RUN echo "#!/bin/sh\n\nmkdir -p ~/.kube\ncp -v /etc/kubeconfig/config ~/.kube\nkubectl config use-context default" > /usr/local/bin/gcloud; chmod +x /usr/local/bin/gcloud; cat /usr/local/bin/gcloud
 
 #############
 # Base OS

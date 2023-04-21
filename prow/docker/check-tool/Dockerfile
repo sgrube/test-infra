@@ -187,14 +187,12 @@ RUN apt-get update && apt-get -y --no-install-recommends install \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
-# gcloud SDK
-ENV CLOUDSDK_PYTHON_SITEPACKAGES=1
-ENV CLOUDSDK_CORE_DISABLE_PROMPTS=1
-ENV CLOUDSDK_INSTALL_DIR=/usr/lib
-RUN echo curl https://sdk.cloud.google.com > /tmp/install_gcloud_sdk
-# FIXME: remove always true suffix after gcloud-sdk installation on ppc64le&s390x is fixed.
-RUN chmod +x /tmp/install_gcloud_sdk && bash /tmp/install_gcloud_sdk || true
-RUN ${CLOUDSDK_INSTALL_DIR}/google-cloud-sdk/bin/gcloud components install gke-gcloud-auth-plugin --quiet || true
+#############
+# gcloud sdk 412.0.0 for multi arch
+# no longer needed in new prow, fake it
+#############
+
+RUN echo "#!/bin/sh\n\nmkdir -p ~/.kube\ncp -v /etc/kubeconfig/config ~/.kube\nkubectl config use-context default" > /usr/local/bin/gcloud; chmod +x /usr/local/bin/gcloud; cat /usr/local/bin/gcloud
 
 # Clean up unused stuff for the final image
 RUN rm -rf /var/lib/apt/lists/*
