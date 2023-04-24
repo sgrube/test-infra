@@ -223,7 +223,7 @@ ENV GOROOT=/usr/local/go
 ENV GOPATH=${HOME}/go
 ENV GOBIN=${HOME}/gobin
 ENV GOCACHE=${HOME}/gocache
-ENV PATH=/usr/lib/google-cloud-sdk/bin:/usr/local/kubebuilder/bin:/usr/local/go/bin:${HOME}/go/bin:${HOME}/gobin:$PATH
+ENV PATH=/usr/lib/google-cloud-sdk/bin:/usr/local/kubebuilder/bin:/usr/local/go/bin:${HOME}/go/bin:${HOME}/gobin:/usr/local/bin:$PATH
 
 # Docker support
 ENV DOCKER_CONFIG=${HOME}/.docker
