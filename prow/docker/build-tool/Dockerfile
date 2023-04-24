@@ -84,8 +84,6 @@ RUN rm -fr /usr/local/go/bin/gofmt
 # no longer needed in new prow, fake it
 #############
 
-RUN echo "#!/bin/sh\n\nmkdir -p ~/.kube\ncp -v /etc/kubeconfig/config ~/.kube\nkubectl config use-context default" > /usr/local/bin/gcloud; chmod +x /usr/local/bin/gcloud; cat /usr/local/bin/gcloud
-
 #############
 # Base OS
 #############
@@ -173,6 +171,10 @@ ENV DOCKER_CONFIG=${HOME}/.docker
 COPY --from=base_os_context / /
 COPY --from=binary_tools_context /out/ /
 COPY --from=binary_tools_context /usr/local/go /usr/local/go
+
+# fake gcloud
+RUN echo "#!/bin/sh\n\nmkdir -p ~/.kube\ncp -v /etc/kubeconfig/config ~/.kube\nkubectl config use-context default" > /usr/local/bin/gcloud; chmod +x /usr/local/bin/gcloud; cat /usr/local/bin/gcloud
+
 
 RUN mkdir -p ${HOME}/go && \
     mkdir -p ${HOME}/gobin && \

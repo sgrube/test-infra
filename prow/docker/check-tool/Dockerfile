@@ -192,8 +192,6 @@ RUN apt-get update && apt-get -y --no-install-recommends install \
 # no longer needed in new prow, fake it
 #############
 
-RUN echo "#!/bin/sh\n\nmkdir -p ~/.kube\ncp -v /etc/kubeconfig/config ~/.kube\nkubectl config use-context default" > /usr/local/bin/gcloud; chmod +x /usr/local/bin/gcloud; cat /usr/local/bin/gcloud
-
 # Clean up unused stuff for the final image
 RUN rm -rf /var/lib/apt/lists/*
 RUN rm -fr /usr/share/bash-completion
@@ -245,6 +243,10 @@ COPY --from=ruby_tools_context /usr/local/bin /usr/local/bin
 COPY --from=nodejs_tools_context /usr/local /usr/local
 COPY --from=python_context /usr/local/bin /usr/local/bin
 COPY --from=python_context /usr/local/lib /usr/local/lib
+
+# fake gcloud
+RUN echo "#!/bin/sh\n\nmkdir -p ~/.kube\ncp -v /etc/kubeconfig/config ~/.kube\nkubectl config use-context default" > /usr/local/bin/gcloud; chmod +x /usr/local/bin/gcloud; cat /usr/local/bin/gcloud
+
 
 RUN mkdir -p ${HOME}/go && \
     mkdir -p ${HOME}/gobin && \
