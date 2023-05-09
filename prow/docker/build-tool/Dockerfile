@@ -14,7 +14,7 @@ ENV GOIMPORTS_VERSION=379209517ffe
 ENV GOLANGCI_LINT_VERSION=v1.51.2
 ENV HELM_VERSION=v3.4.1
 ENV KUBECTL_VERSION=v1.22.17
-ENV KUBEBUILDER_VERSION=2.3.1
+ENV KUBEBUILDER_VERSION=2.3.2
 ENV KUSTOMIZE_VERSION=v4.5.4
 ENV OPERATOR_SDK_VERSION=v1.3.0
 ENV KIND_VERSION=v0.17.0
@@ -37,12 +37,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     ca-certificates \
     curl \
-    gnupg2 \
+    gnupg \
     software-properties-common
 
 # Build and install Go tools
 RUN go install -ldflags="-s -w" sigs.k8s.io/controller-tools/cmd/controller-gen@${CONTROLLER_GEN_VERSION}
-RUN go install -ldflags="-s -w" golang.org/x/tools/cmd/goimports@${GOIMPORTS_VERSION}
+RUN go install -ldflags="-s -w" golang.org/x/tools/cmd/goimports@latest
 RUN go install -ldflags="-s -w" github.com/golangci/golangci-lint/cmd/golangci-lint@${GOLANGCI_LINT_VERSION}
 RUN go install -ldflags="-s -w" sigs.k8s.io/kustomize/kustomize/v4@${KUSTOMIZE_VERSION}
 RUN go install -ldflags="-s -w" sigs.k8s.io/kind@${KIND_VERSION}
