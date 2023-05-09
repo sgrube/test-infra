@@ -33,7 +33,7 @@ fi
 
 # Start docker daemon and wait for dockerd to start
 service docker start
-cat /etc/docker/daemon.json
+# cat /etc/docker/daemon.json
 
 echo "Waiting for dockerd to start..."
 while :
