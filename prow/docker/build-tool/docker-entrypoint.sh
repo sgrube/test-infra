@@ -25,11 +25,15 @@ if [ ! -f /etc/docker/daemon.json ]; then
   echo "Enable experimental mode for docker "
   # fix the MTU settings for DinD daemon
   docker_mtu=8940
+  if uname -m | grep s390x; then
+    docker_mtu=1440
+  fi
   jq -n --arg mtu ${docker_mtu} --arg enable true '{"mtu":$mtu|tonumber,"experimental":$enable| test("true")}' > /etc/docker/daemon.json
 fi
 
 # Start docker daemon and wait for dockerd to start
 service docker start
+cat /etc/docker/daemon.json
 
 echo "Waiting for dockerd to start..."
 while :
