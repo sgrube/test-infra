@@ -4,7 +4,7 @@
 
 # Use golang as the binary_tools_context
 
-FROM golang:1.20.5 as binary_tools_context
+FROM golang:1.20.5-bullseye as binary_tools_context
 
 ARG ARCH=amd64
 
