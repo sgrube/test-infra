@@ -4,7 +4,7 @@
 
 # Use golang as the binary_tools_context
 
-FROM golang:1.20.8-bullseye as binary_tools_context
+FROM golang:1.20.9-bullseye as binary_tools_context
 
 # Pinned versions of stuff
 ENV GOIMPORTS_VERSION=379209517ffe
