@@ -184,6 +184,8 @@ RUN apt-get update && apt-get -y --no-install-recommends install \
     python3.7 \
     wget \
     jq \
+    zip \
+    unzip \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
