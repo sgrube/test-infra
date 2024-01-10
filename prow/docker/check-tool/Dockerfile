@@ -130,6 +130,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ruby2.7-dev
 
 # Install verification tools
+## explicit nokogiri for ruby version
+RUN gem install --no-wrappers --no-document nokogiri -v 1.15.5
 RUN gem install --no-wrappers --no-document mdl -v ${MDL_VERSION}
 RUN gem install --no-wrappers --no-document html-proofer -v ${HTMLPROOFER_VERSION}
 RUN gem install --no-wrappers --no-document awesome_bot -v ${AWESOMEBOT_VERSION}
