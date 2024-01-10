@@ -204,3 +204,4 @@ EXPOSE 2375
 WORKDIR ${HOME}
 
 ENTRYPOINT ["/usr/local/bin/entrypoint"]
+
