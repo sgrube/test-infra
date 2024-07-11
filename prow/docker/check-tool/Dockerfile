@@ -158,7 +158,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python3-distutils
 
 # installing pip in this manner to get pip3.7 and not pip3.6
-RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && python3.7 get-pip.py
+RUN curl https://bootstrap.pypa.io/pip/3.7/get-pip.py -o get-pip.py && python3.7 get-pip.py
 
 # Install Python stuff
 # hadolint ignore=DL3013
