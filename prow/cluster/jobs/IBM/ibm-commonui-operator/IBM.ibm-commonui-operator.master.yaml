@@ -124,6 +124,8 @@ presubmits:
         securityContext:
           privileged: true
     trigger: '(?m)^/test (?:.*? )?build(?: .*?)?$'
+postsubmits:
+  IBM/ibm-commonui-operator:
   - name: build_ibm-commonui-operator_postsubmit
     cluster: default
     branches:
