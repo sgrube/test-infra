@@ -51,7 +51,6 @@ presubmits:
     trigger: '(?m)^/test (?:.*? )?test(?: .*?)?$'
   - name: test_ibm-commonui-operator-ppc64le
     cluster: ppc64le
-    cluster: default
     branches:
     - ^master$
     - ^release-future$
@@ -77,7 +76,6 @@ presubmits:
     trigger: '(?m)^/test (?:.*? )?test(?: .*?)?$'
   - name: test_ibm-commonui-operator-s390x
     cluster: s390x
-    cluster: default
     branches:
     - ^master$
     - ^release-future$
@@ -177,7 +175,7 @@ presubmits:
           privileged: true
     trigger: '(?m)^/test (?:.*? )?build(?: .*?)?$'
 #postsubmits:
-  IBM/ibm-commonui-operator:
+#  IBM/ibm-commonui-operator:
   - name: build_ibm-commonui-operator_postsubmit
     cluster: default
     branches:
