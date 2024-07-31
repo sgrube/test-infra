@@ -49,56 +49,6 @@ presubmits:
         securityContext:
           privileged: true
     trigger: '(?m)^/test (?:.*? )?test(?: .*?)?$'
-  - name: test_ibm-commonui-operator-ppc64le
-    cluster: ppc64le
-    branches:
-    - ^master$
-    - ^release-future$
-    - ^release-efix$
-    - ^release-eus$
-    - ^release-k$
-    - ^release-ltsr$
-    - ^release-sc2$
-    decorate: true
-    always_run: true
-    path_alias: github.com/IBM/ibm-commonui-operator
-    rerun_command: /test test ibm-commonui-operator
-    spec:
-      containers:
-      - command:
-        - entrypoint
-        - make
-        - test
-        image: quay.io/cicdtest/build-tool:v20240711-d1227e929
-        name: ""
-        securityContext:
-          privileged: true
-    trigger: '(?m)^/test (?:.*? )?test(?: .*?)?$'
-  - name: test_ibm-commonui-operator-s390x
-    cluster: s390x
-    branches:
-    - ^master$
-    - ^release-future$
-    - ^release-efix$
-    - ^release-eus$
-    - ^release-k$
-    - ^release-ltsr$
-    - ^release-sc2$
-    decorate: true
-    always_run: true
-    path_alias: github.com/IBM/ibm-commonui-operator
-    rerun_command: /test test ibm-commonui-operator
-    spec:
-      containers:
-      - command:
-        - entrypoint
-        - make
-        - test
-        image: quay.io/cicdtest/build-tool:v20240711-d1227e929
-        name: ""
-        securityContext:
-          privileged: true
-    trigger: '(?m)^/test (?:.*? )?test(?: .*?)?$'
   - name: build_ibm-commonui-operator
     cluster: default
     branches:
@@ -174,8 +124,6 @@ presubmits:
         securityContext:
           privileged: true
     trigger: '(?m)^/test (?:.*? )?build(?: .*?)?$'
-#postsubmits:
-#  IBM/ibm-commonui-operator:
   - name: build_ibm-commonui-operator_postsubmit
     cluster: default
     branches:
