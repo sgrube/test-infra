@@ -1,14 +1,14 @@
 presubmits:
   IBM/ibm-user-management-operator:
-  - name: check-ibm-user-management-operator 
+  - name: check-ibm-user-management-operator
     cluster: default
     always_run: true
     branches:
     - ^master$
     - ^release-future$
     decorate: true
-    path_alias: github.com/IBM/ibm-user-management-operator 
-    rerun_command: /test check-ibm-user-management-operator 
+    path_alias: github.com/IBM/ibm-user-management-operator
+    rerun_command: /test check-ibm-user-management-operator
     spec:
       containers:
       - command:
@@ -81,6 +81,63 @@ presubmits:
     trigger: '(?m)^/test (?:.*? )?test(?:.*?)?$'
 postsubmits:
   IBM/ibm-user-management-operator:
+  - name: image-ibm-user-management-operator-amd64-postsubmit
+    cluster: default
+    branches:
+    - ^master$
+    - ^release-future$
+    decorate: true
+    labels:
+      preset-service-account: "true"
+    path_alias: github.com/IBM/ibm-user-management-operator
+    spec:
+      containers:
+      - command:
+        - entrypoint
+        - make
+        - build-push-image
+        image: quay.io/cicdtest/build-tool:v20250606-f2ed23c2c
+        name: ""
+        securityContext:
+          privileged: true
+  - name: image-ibm-user-management-operator-ppc64le-postsubmit
+    cluster: ppc64le
+    branches:
+    - ^master$
+    - ^release-future$
+    decorate: true
+    labels:
+      preset-service-account: "true"
+    path_alias: github.com/IBM/ibm-user-management-operator
+    spec:
+      containers:
+      - command:
+        - entrypoint
+        - make
+        - build-push-image
+        image: quay.io/cicdtest/build-tool:v20250606-f2ed23c2c
+        name: ""
+        securityContext:
+          privileged: true
+  - name: image-ibm-user-management-operator-s390x-postsubmit
+    cluster: s390x
+    branches:
+    - ^master$
+    - ^release-future$
+    decorate: true
+    labels:
+      preset-service-account: "true"
+    path_alias: github.com/IBM/ibm-user-management-operator
+    spec:
+      containers:
+      - command:
+        - entrypoint
+        - make
+        - build-push-image
+        image: quay.io/cicdtest/build-tool:v20250606-f2ed23c2c
+        name: ""
+        securityContext:
+          privileged: true
   - name: multiarch-image-ibm-user-management-operator-postsubmit
     cluster: default
     branches:
@@ -95,9 +152,8 @@ postsubmits:
       - command:
         - entrypoint
         - make
-        - docker-build-push-prod
+        - multiarch-image
         image: quay.io/cicdtest/build-tool:v20250606-f2ed23c2c
         name: ""
         securityContext:
           privileged: true
-
