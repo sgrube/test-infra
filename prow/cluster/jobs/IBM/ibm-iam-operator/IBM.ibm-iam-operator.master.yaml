@@ -2,14 +2,12 @@ presubmits:
   IBM/ibm-iam-operator:
   - name: build_ibm-iam-operator
     branches:
-    - ^master$
     - ^release-ltsr$
     - ^release-cd$
     - ^release-efix$
     - ^release-eus$
     - ^release-k$
     - ^release-future$
-    - ^release-sc2$
     decorate: true
     always_run: true
     path_alias: github.com/IBM/ibm-iam-operator
@@ -27,14 +25,12 @@ presubmits:
     trigger: '(?m)^/test (?:.*? )?build(?: .*?)?$'
   - name: check_ibm-iam-operator
     branches:
-    - ^master$
     - ^release-ltsr$
     - ^release-cd$
     - ^release-efix$
     - ^release-eus$
     - ^release-k$
     - ^release-future$
-    - ^release-sc2$
     decorate: true
     always_run: true
     path_alias: github.com/IBM/ibm-iam-operator
@@ -51,14 +47,12 @@ presubmits:
     trigger: '(?m)^/test (?:.*? )?check(?: .*?)?$'
   - name: test_ibm-iam-operator
     branches:
-    - ^master$
     - ^release-ltsr$
     - ^release-cd$
     - ^release-efix$
     - ^release-eus$
     - ^release-k$
     - ^release-future$
-    - ^release-sc2$
     decorate: true
     always_run: true
     path_alias: github.com/IBM/ibm-iam-operator
@@ -79,14 +73,12 @@ postsubmits:
   IBM/ibm-iam-operator:
   - name: check_ibm-iam-operator_postsubmit
     branches:
-    - ^master$
     - ^release-ltsr$
     - ^release-cd$
     - ^release-efix$
     - ^release-eus$
     - ^release-k$
     - ^release-future$
-    - ^release-sc2$
     decorate: true
     path_alias: github.com/IBM/ibm-iam-operator
     spec:
@@ -100,14 +92,12 @@ postsubmits:
           privileged: true
   - name: test_ibm-iam-operator_postsubmit
     branches:
-    - ^master$
     - ^release-ltsr$
     - ^release-cd$
     - ^release-efix$
     - ^release-eus$
     - ^release-k$
     - ^release-future$
-    - ^release-sc2$
     decorate: true
     path_alias: github.com/IBM/ibm-iam-operator
     spec:
@@ -122,14 +112,12 @@ postsubmits:
           privileged: true
   - name: build_ibm-iam-operator_postsubmit
     branches:
-    - ^master$
     - ^release-ltsr$
     - ^release-cd$
     - ^release-efix$
     - ^release-eus$
     - ^release-k$
     - ^release-future$
-    - ^release-sc2$
     decorate: true
     path_alias: github.com/IBM/ibm-iam-operator
     spec:
@@ -144,14 +132,12 @@ postsubmits:
           privileged: true
   - name: images_ibm-iam-operator_postsubmit
     branches:
-    - ^master$
     - ^release-ltsr$
     - ^release-cd$
     - ^release-efix$
     - ^release-eus$
     - ^release-k$
     - ^release-future$
-    - ^release-sc2$
     decorate: true
     path_alias: github.com/IBM/ibm-iam-operator
     labels:
